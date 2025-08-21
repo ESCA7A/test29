@@ -1,0 +1,145 @@
+<?php
+
+namespace App\Providers;
+
+use FilesystemIterator;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+
+class RouteServiceProvider extends ServiceProvider
+{
+    /**
+     * The path to your application's "home" route.
+     *
+     * Typically, users are redirected here after authentication.
+     *
+     * @var string
+     */
+    public const HOME = '/home';
+
+    /**
+     * Define your route model bindings, pattern filters, and other route configuration.
+     */
+    public function boot(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+        $this->registerDomains();
+
+//        $this->routes(function () {
+//            Route::middleware('api')
+//                ->prefix('api')
+//                ->group(base_path('routes/api.php'));
+//
+//            Route::middleware('web')
+//                ->group(base_path('routes/web.php'));
+//        });
+    }
+
+    /**
+     * @return void
+     */
+    private function registerDomains(): void
+    {
+        $this->getDomainsData()->map(function ($domains) {
+            $domains->map(function ($prefixes, $domain) {
+                /**
+                 * @var Collection $routes
+                 */
+                $prefixes->get('prefixes')->map(function ($routes, $prefix) use ($domain) {
+                    Route::prefix(lcfirst($domain))->group(function () use ($routes, $prefix) {
+                        Route::prefix($prefix)->group($routes->toArray());
+                    });
+                });
+            });
+        });
+    }
+
+    /**
+     * Собирает все роуты и префиксы (bounded contexts)
+     * Каждому роуту будет добавлен его контекст в качестве префикса
+     *
+     * @todo: кешировать для прода
+     * @todo: исправить ситуацию когда роуты с одинаковым ендпоинтом отображаются как единая точка
+     * - Это случается так как у них один контекст и единый middleware.
+     * @todo: класть в коллекцию списки заранее. Как только списки будут заданы
+     * @todo удалить @method toRecursive(array $data)
+     */
+    private function getDomainsData(): Collection
+    {
+        $contextRouteList = [];
+        $domainData = [];
+
+        $domainsConfig = config('domains.base_domain_directories.dataloft');
+        $path = base_path('dataloft');
+        $domainNames = collect($domainsConfig)->keys();
+
+        foreach ($domainNames as $domain) {
+            $domainPath = "{$path}/{$domain}";
+            $boundedContextList = config("domains.base_domain_directories.dataloft.{$domain}");
+
+            if (!$boundedContextList) {
+                continue;
+            }
+
+            foreach ($boundedContextList as $context) {
+                $iteratorPath = "{$domainPath}/{$context}";
+                $context = lcfirst($context);
+
+                /**
+                 * @var RecursiveDirectoryIterator $item
+                 *
+                 * поиск директории routes и сбор всех роутов текущего баунд контекста
+                 */
+                $recursiveIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($iteratorPath, FilesystemIterator::KEY_AS_PATHNAME));
+                foreach ($recursiveIterator as $item) {
+                    if ($item->isDir()) {
+
+                        continue;
+                    }
+
+                    $riPathname = $item->getPathname();
+                    $routeIsExist = Str::contains($riPathname, 'routes');
+                    if (!$routeIsExist) {
+
+                        continue;
+                    }
+
+                    $contextRouteList[] = $riPathname;
+                }
+                $prefixesContext['prefixes'][$context] = $contextRouteList;
+                unset($contextRouteList);
+            }
+
+            $domains[$domain] = $prefixesContext;
+            $domainData['domains'] = $domains;
+            unset($prefixesContext);
+        }
+
+        return $this->toRecursive($domainData);
+    }
+
+    private function toRecursive(array $data): Collection
+    {
+        $collection = collect();
+
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $collection->put($key, $this->toRecursive($value));
+            } else {
+                $collection->put($key, $value);
+            }
+        }
+
+        return $collection;
+    }
+}
