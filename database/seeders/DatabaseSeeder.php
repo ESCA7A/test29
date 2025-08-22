@@ -36,5 +36,4 @@ class DatabaseSeeder extends Seeder
             VehicleAccess::factory(100)->create();
         }
     }
-
 }
