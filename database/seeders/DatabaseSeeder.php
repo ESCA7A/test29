@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Dataloft\Auto\Brand\Models\Brand;
 use Dataloft\Auto\CarModel\Models\CarModel;
 use Dataloft\Auto\Vehicle\Models\Vehicle;
+use Dataloft\User\User\Models\User;
+use Dataloft\User\VehicleAccess\Models\VehicleAccess;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,6 +30,10 @@ class DatabaseSeeder extends Seeder
 
         if (Vehicle::query()->count('id') < 200) {
             Vehicle::factory(200)->create();
+        }
+
+        if (VehicleAccess::query()->count('id') < 100) {
+            VehicleAccess::factory(100)->create();
         }
     }
 

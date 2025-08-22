@@ -2,16 +2,19 @@
 
 namespace App\Providers;
 
+use Exception;
 use FilesystemIterator;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -56,7 +59,7 @@ class RouteServiceProvider extends ServiceProvider
                  * @var Collection $routes
                  */
                 $prefixes->get('prefixes')->map(function ($routes, $prefix) use ($domain) {
-                    Route::prefix(lcfirst($domain))->group(function () use ($routes, $prefix) {
+                    Route::prefix(Str::lower($domain))->group(function () use ($routes, $prefix) {
                         Route::prefix($prefix)->group($routes->toArray());
                     });
                 });
@@ -84,23 +87,45 @@ class RouteServiceProvider extends ServiceProvider
         $domainNames = collect($domainsConfig)->keys();
 
         foreach ($domainNames as $domain) {
+            $prefixesContext = [];
             $domainPath = "{$path}/{$domain}";
-            $boundedContextList = config("domains.base_domain_directories.dataloft.{$domain}");
 
+            if (!realpath($domainPath)) {
+                Log::debug('Указанный домен не существует', ['domain' => $domain]);
+                throw new RouteNotFoundException(__('Указанный домен не существует: :domain', [
+                    'domain' => $domain
+                ]));
+            }
+
+
+            $boundedContextList = config("domains.base_domain_directories.dataloft.{$domain}");
             if (!$boundedContextList) {
-                continue;
+                Log::debug('Bounded контексты не указаны', ['list' => $boundedContextList]);
+                throw new RouteNotFoundException(__('Bounded контексты не указаны: :list', [
+                    'list' => json_encode($boundedContextList)
+                ]));
             }
 
             foreach ($boundedContextList as $context) {
                 $iteratorPath = "{$domainPath}/{$context}";
-                $context = lcfirst($context);
+
+                if (!realpath($iteratorPath)) {
+                    Log::debug('Указанный bounded context не существует', ['bounded context title' => $context]);
+                    throw new RouteNotFoundException(__('Указанный bounded context не существует: :title', [
+                        'title' => $context
+                    ]));
+                }
+
+                $context = Str::lower($context);
 
                 /**
                  * @var RecursiveDirectoryIterator $item
                  *
                  * поиск директории routes и сбор всех роутов текущего баунд контекста
                  */
-                $recursiveIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($iteratorPath, FilesystemIterator::KEY_AS_PATHNAME));
+                $rdi = new RecursiveDirectoryIterator($iteratorPath, FilesystemIterator::KEY_AS_PATHNAME);
+                $recursiveIterator = new RecursiveIteratorIterator($rdi);
+                $contextRouteList = [];
                 foreach ($recursiveIterator as $item) {
                     if ($item->isDir()) {
 
@@ -116,6 +141,13 @@ class RouteServiceProvider extends ServiceProvider
 
                     $contextRouteList[] = $riPathname;
                 }
+                if (!$contextRouteList) {
+                    Log::debug('Указанный bounded context не имеет маршрутов', ['route list' => $contextRouteList]);
+                    throw new RouteNotFoundException(__('Указанный bounded context не имеет маршрутов: :title', [
+                        'title' => $context
+                    ]));
+                }
+
                 $prefixesContext['prefixes'][$context] = $contextRouteList;
                 unset($contextRouteList);
             }
