@@ -3,7 +3,9 @@
 namespace Dataloft\User\User\Dto;
 
 use Carbon\CarbonImmutable;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 /**
  * @property int $id
@@ -15,16 +17,17 @@ use Spatie\LaravelData\Data;
  * @property CarbonImmutable $created_at
  * @property CarbonImmutable $updated_at
  */
+#[MapInputName(SnakeCaseMapper::class)]
 class User extends Data
 {
     public function __construct(
         public readonly int $id,
         public readonly string $name,
         public readonly string $email,
-        public readonly CarbonImmutable $email_verified_at,
+        public readonly CarbonImmutable $emailVerifiedAt,
         public readonly string $password,
-        public readonly string $remember_token,
-        public readonly CarbonImmutable $created_at,
-        public readonly CarbonImmutable $updated_at,
+        public readonly string $rememberToken,
+        public readonly CarbonImmutable $createdAt,
+        public readonly CarbonImmutable $updatedAt,
     ) {}
 }
