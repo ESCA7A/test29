@@ -17,7 +17,6 @@ return new class extends Migration
             $table->date('release_year')->comment('Год выпуска');
             $table->integer('car_mileage_km')->comment('Пробег в километрах');
             $table->string('color')->comment('Цвет');
-            $table->foreignId('user_id')->comment('user_id');
 
             $table->timestamps();
         });

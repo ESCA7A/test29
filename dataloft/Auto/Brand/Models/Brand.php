@@ -2,6 +2,7 @@
 
 namespace Dataloft\Auto\Brand\Models;
 
+use Dataloft\Auto\Brand\Database\Factories\BrandFactory;
 use Dataloft\Auto\CarModel\Models\CarModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,8 +19,8 @@ class Brand extends Model
         return $this->hasMany(CarModel::class);
     }
 
-    protected static function newFactory(): \Dataloft\Auto\Brand\Database\Factories\BrandFactory
+    protected static function newFactory(): BrandFactory
     {
-        return \Dataloft\Auto\Brand\Database\Factories\BrandFactory::new();
+        return BrandFactory::new();
     }
 }

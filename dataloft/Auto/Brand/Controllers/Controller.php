@@ -3,11 +3,14 @@
 namespace Dataloft\Auto\Brand\Controllers;
 
 use Dataloft\Auto\Brand\Models\Brand;
+use Dataloft\Auto\Brand\Resources\BrandResource;
+use App\Http\Controllers\Controller as BaseController;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class Controller extends \App\Http\Controllers\Controller
+class Controller extends BaseController
 {
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        return Brand::all();
+        return BrandResource::collection(Brand::query()->paginate(15));
     }
 }

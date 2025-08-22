@@ -2,7 +2,6 @@
 
 namespace Dataloft\Auto\Vehicle\Database\Factories;
 
-use App\Models\User;
 use Dataloft\Auto\CarModel\Models\CarModel;
 use Dataloft\Auto\Vehicle\Models\Vehicle;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,7 +25,6 @@ class VehicleFactory extends Factory
             'release_year' => $this->faker->date,
             'car_mileage_km' => $this->faker->numberBetween(),
             'color' => $this->faker->hexColor,
-            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

@@ -3,11 +3,14 @@
 namespace Dataloft\Auto\CarModel\Controller;
 
 use Dataloft\Auto\CarModel\Models\CarModel;
+use App\Http\Controllers\Controller as BaseController;
+use Dataloft\Auto\CarModel\Resources\CarModelResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class Controller extends \App\Http\Controllers\Controller
+class Controller extends BaseController
 {
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        return CarModel::all();
+        return CarModelResource::collection(CarModel::query()->paginate(15));
     }
 }

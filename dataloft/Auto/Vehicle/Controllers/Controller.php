@@ -3,11 +3,16 @@
 namespace Dataloft\Auto\Vehicle\Controllers;
 
 use Dataloft\Auto\Vehicle\Models\Vehicle;
+use Dataloft\Auto\Vehicle\Requests\IndexVehicleRequest;
+use Dataloft\Auto\Vehicle\Resources\VehicleResource;
+use App\Http\Controllers\Controller as BaseController;
 
-class Controller extends \App\Http\Controllers\Controller
+class Controller extends BaseController
 {
-    public function index()
+    public function index(IndexVehicleRequest $request)
     {
-        return Vehicle::all();
+        return VehicleResource::collection(
+            Vehicle::query()->with('getCarModel.getBrand')->paginate($request->limit)
+        );
     }
 }
