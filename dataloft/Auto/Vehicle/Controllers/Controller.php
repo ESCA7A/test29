@@ -2,9 +2,7 @@
 
 namespace Dataloft\Auto\Vehicle\Controllers;
 
-use Dataloft\Auto\Vehicle\Dto\Response\DeleteResponse;
 use Dataloft\Auto\Vehicle\Dto\VehicleCreateData;
-use Dataloft\Auto\Vehicle\Dto\VehicleData;
 use Dataloft\Auto\Vehicle\Dto\VehicleDeleteData;
 use Dataloft\Auto\Vehicle\Dto\VehicleUpdateData;
 use Dataloft\Auto\Vehicle\Models\Vehicle;
