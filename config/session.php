@@ -198,7 +198,6 @@ return [
     | Supported: "lax", "strict", "none", null
     |
     */
-
     'same_site' => env('SESSION_SAME_SITE', 'lax'),
 
     /*
