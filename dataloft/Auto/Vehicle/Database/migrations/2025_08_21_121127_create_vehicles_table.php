@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('car_model_id');
-            $table->date('release_year')->comment('Год выпуска');
-            $table->integer('car_mileage_km')->comment('Пробег в километрах');
-            $table->string('color')->comment('Цвет');
+            $table->date('release_year')->nullable()->comment('Год выпуска');
+            $table->integer('car_mileage_km')->nullable()->comment('Пробег в километрах');
+            $table->string('color')->nullable()->comment('Цвет');
 
             $table->timestamps();
         });
