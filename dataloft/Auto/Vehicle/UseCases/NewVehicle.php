@@ -11,10 +11,8 @@ use Throwable;
 
 readonly class NewVehicle
 {
-    public static function create(CreateData $data): ?VehicleData
+    public static function create(CreateData $data): VehicleData
     {
-        $newVehicle = null;
-
         DB::beginTransaction();
         try {
             $newVehicle = VehicleData::from(Vehicle::create($data->toArray()));

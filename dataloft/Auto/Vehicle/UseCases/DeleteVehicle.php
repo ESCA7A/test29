@@ -2,21 +2,20 @@
 
 namespace Dataloft\Auto\Vehicle\UseCases;
 
-use Dataloft\Auto\Vehicle\Dto\Response\PatchResponse;
-use Dataloft\Auto\Vehicle\Dto\VehicleUpdateData;
+use Dataloft\Auto\Vehicle\Dto\Response\DeleteResponse;
+use Dataloft\Auto\Vehicle\Dto\VehicleDeleteData;
 use Dataloft\Auto\Vehicle\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-readonly class UpdateVehicle
+readonly class DeleteVehicle
 {
-    public static function patch(VehicleUpdateData $data): PatchResponse
+    public static function rm(VehicleDeleteData $data): DeleteResponse
     {
         DB::beginTransaction();
         try {
-            $isPatched = Vehicle::query()->where('id', $data->id)->update($data->toArray());
-
+            $delete = Vehicle::query()->where('id', $data->id)->delete();
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
@@ -24,6 +23,6 @@ readonly class UpdateVehicle
             throw $e;
         }
 
-        return PatchResponse::from(['is_patched' => $isPatched]);
+        return DeleteResponse::from(['is_deleted' => $delete]);
     }
 }
