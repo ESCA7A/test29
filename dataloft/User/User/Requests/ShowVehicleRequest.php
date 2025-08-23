@@ -14,7 +14,7 @@ class ShowVehicleRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        if ($this->id) {
+        if ($this->userId) {
             Authorize::as(AuthorizeUser::from($this));
 
             return true;

@@ -10,6 +10,6 @@ use Spatie\LaravelData\Data;
 class AuthorizeUser extends Data
 {
     public function __construct(
-        public readonly int $id,
+        public readonly int $userId,
     ) {}
 }

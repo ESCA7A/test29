@@ -10,6 +10,6 @@ class Authorize
 {
     public static function as(AuthorizeUser $user): void
     {
-        Auth::setUser(User::find($user->id));
+        Auth::setUser(User::find($user->userId));
     }
 }
