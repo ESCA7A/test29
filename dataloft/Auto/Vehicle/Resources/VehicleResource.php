@@ -5,7 +5,7 @@ namespace Dataloft\Auto\Vehicle\Resources;
 use Dataloft\Auto\CarModel\Resources\CarModelResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VehicleResource extends JsonResource
+final class VehicleResource extends JsonResource
 {
     public function toArray($request): array
     {

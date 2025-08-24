@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class RouteFinder
+final class RouteFinder
 {
     public function get(string $basePath): array
     {

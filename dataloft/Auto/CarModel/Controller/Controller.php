@@ -2,15 +2,15 @@
 
 namespace Dataloft\Auto\CarModel\Controller;
 
+use Dataloft\Application\Routing\Controllers\BaseController;
 use Dataloft\Auto\CarModel\Models\CarModel;
-use App\Http\Controllers\Controller as BaseController;
 use Dataloft\Auto\CarModel\Resources\CarModelResource;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\JsonResponse;
 
 class Controller extends BaseController
 {
-    public function index(): AnonymousResourceCollection
+    public function index(): JsonResponse
     {
-        return CarModelResource::collection(CarModel::query()->paginate(15));
+        return $this->asJson(CarModelResource::collection(CarModel::query()->paginate(15)));
     }
 }

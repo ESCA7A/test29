@@ -2,6 +2,7 @@
 
 namespace Dataloft\Auto\Vehicle\Controllers;
 
+use Dataloft\Application\Routing\Controllers\BaseController;
 use Dataloft\Auto\Vehicle\Dto\VehicleCreateData;
 use Dataloft\Auto\Vehicle\Dto\VehicleDeleteData;
 use Dataloft\Auto\Vehicle\Dto\VehicleUpdateData;
@@ -11,19 +12,17 @@ use Dataloft\Auto\Vehicle\Requests\DeleteVehicleRequest;
 use Dataloft\Auto\Vehicle\Requests\IndexVehicleRequest;
 use Dataloft\Auto\Vehicle\Requests\UpdateVehicleRequest;
 use Dataloft\Auto\Vehicle\Resources\VehicleResource;
-use App\Http\Controllers\Controller as BaseController;
 use Dataloft\Auto\Vehicle\UseCases\DeleteVehicle;
 use Dataloft\Auto\Vehicle\UseCases\NewVehicle;
 use Dataloft\Auto\Vehicle\UseCases\UpdateVehicle;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Throwable;
 
 class Controller extends BaseController
 {
     /**
      */
-    public function index(IndexVehicleRequest $request): AnonymousResourceCollection
+    public function index(IndexVehicleRequest $request): JsonResponse
     {
         $vehicleResource = cache('vehicle-resource-index');
 
@@ -38,7 +37,7 @@ class Controller extends BaseController
             );
         }
 
-        return $vehicleResource;
+        return $this->asJson($vehicleResource);
     }
 
     /**
@@ -46,7 +45,7 @@ class Controller extends BaseController
      */
     public function create(CreateVehicleRequest $request): JsonResponse
     {
-        return response()->json(NewVehicle::create(VehicleCreateData::from($request)));
+        return $this->asJson(NewVehicle::create(VehicleCreateData::from($request)));
     }
 
     /**
@@ -54,7 +53,7 @@ class Controller extends BaseController
      */
     public function update(UpdateVehicleRequest $request): JsonResponse
     {
-        return response()->json(UpdateVehicle::patch(VehicleUpdateData::from($request)));
+        return $this->asJson(UpdateVehicle::patch(VehicleUpdateData::from($request)));
     }
 
     /**
@@ -62,6 +61,6 @@ class Controller extends BaseController
      */
     public function delete(DeleteVehicleRequest $request): JsonResponse
     {
-        return response()->json(DeleteVehicle::rm(VehicleDeleteData::from($request)));
+        return $this->asJson(DeleteVehicle::rm(VehicleDeleteData::from($request)));
     }
 }

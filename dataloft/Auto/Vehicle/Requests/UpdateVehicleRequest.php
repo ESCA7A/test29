@@ -5,7 +5,7 @@ namespace Dataloft\Auto\Vehicle\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateVehicleRequest extends FormRequest
+final class UpdateVehicleRequest extends FormRequest
 {
     public function rules(): array
     {

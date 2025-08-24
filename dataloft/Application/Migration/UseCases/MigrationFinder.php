@@ -8,7 +8,7 @@ use PHPUnit\TextUI\XmlConfiguration\MigrationException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-readonly class MigrationFinder
+final readonly class MigrationFinder
 {
     function getPaths(): array
     {

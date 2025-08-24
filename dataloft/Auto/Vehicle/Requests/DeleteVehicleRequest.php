@@ -2,14 +2,28 @@
 
 namespace Dataloft\Auto\Vehicle\Requests;
 
+use Dataloft\User\User\Dto\AuthorizeUser;
+use Dataloft\User\User\Rules\IsOwner;
+use Dataloft\User\User\UseCases\Authorize;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteVehicleRequest extends FormRequest
+final class DeleteVehicleRequest extends FormRequest
 {
+    public function authorize(): bool
+    {
+        if ($this->user_id) {
+            Authorize::as(AuthorizeUser::from($this));
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function rules(): array
     {
         return [
-            'id' => ['required', 'numeric'],
+            'id' => ['required', 'numeric', new IsOwner()],
         ];
     }
 

@@ -6,7 +6,7 @@ use Dataloft\User\User\Dto\AuthorizeUser;
 use Dataloft\User\User\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-class Authorize
+final readonly class Authorize
 {
     public static function as(AuthorizeUser $user): void
     {

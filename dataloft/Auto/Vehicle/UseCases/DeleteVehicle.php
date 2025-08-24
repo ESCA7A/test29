@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-readonly class DeleteVehicle
+final readonly class DeleteVehicle
 {
     public static function rm(VehicleDeleteData $data): DeleteResponse
     {

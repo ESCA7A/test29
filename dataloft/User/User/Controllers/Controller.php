@@ -2,14 +2,15 @@
 
 namespace Dataloft\User\User\Controllers;
 
+use Dataloft\Application\Routing\Controllers\BaseController;
 use Dataloft\User\User\Requests\ShowVehicleRequest;
 use Dataloft\User\User\Resources\UserResource;
-use App\Http\Controllers\Controller as BaseController;
+use Illuminate\Http\JsonResponse;
 
 class Controller extends BaseController
 {
-    public function index(ShowVehicleRequest $request): UserResource
+    public function index(ShowVehicleRequest $request): JsonResponse
     {
-        return new UserResource($request->user()->load('getVehicles'));
+        return $this->asJson(new UserResource($request->user()->load('getVehicles')));
     }
 }

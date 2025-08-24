@@ -4,7 +4,7 @@ namespace Dataloft\Auto\Brand\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BrandResource extends JsonResource
+final class BrandResource extends JsonResource
 {
     public function toArray($request): array
     {

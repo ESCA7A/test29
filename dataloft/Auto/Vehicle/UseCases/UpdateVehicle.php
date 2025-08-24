@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-readonly class UpdateVehicle
+final readonly class UpdateVehicle
 {
     public static function patch(VehicleUpdateData $data): PatchResponse
     {

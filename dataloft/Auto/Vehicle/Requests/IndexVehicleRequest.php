@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  * @property int $limit
  */
-class IndexVehicleRequest extends FormRequest
+final class IndexVehicleRequest extends FormRequest
 {
     public function authorize(): bool
     {

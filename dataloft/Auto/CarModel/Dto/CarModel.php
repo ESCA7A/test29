@@ -5,7 +5,7 @@ namespace Dataloft\Auto\CarModel\Dto;
 use Carbon\CarbonImmutable;
 use Spatie\LaravelData\Data;
 
-class CarModel extends Data
+final class CarModel extends Data
 {
     public function __construct(
         public readonly int $id,

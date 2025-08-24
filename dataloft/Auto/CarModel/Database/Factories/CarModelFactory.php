@@ -6,7 +6,7 @@ use Dataloft\Auto\Brand\Models\Brand;
 use Dataloft\Auto\CarModel\Models\CarModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CarModelFactory extends Factory
+final class CarModelFactory extends Factory
 {
     protected $model = CarModel::class;
 

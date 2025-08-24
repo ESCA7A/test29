@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
-class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\RouteServiceProvider
+final class RouteServiceProvider extends \Illuminate\Foundation\Support\Providers\RouteServiceProvider
 {
     public const HOME = '/home';
 

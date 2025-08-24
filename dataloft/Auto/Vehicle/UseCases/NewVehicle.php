@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-readonly class NewVehicle
+final readonly class NewVehicle
 {
     public static function create(CreateData $data): VehicleData
     {

@@ -5,7 +5,7 @@ namespace Dataloft\Application\Migration\Providers;
 use App\Providers\AppServiceProvider;
 use Dataloft\Application\Migration\UseCases\MigrationFinder;
 
-class MigrationServiceProvider extends AppServiceProvider
+final class MigrationServiceProvider extends AppServiceProvider
 {
     /**
      * Register any application services.

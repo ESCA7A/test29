@@ -4,7 +4,7 @@ namespace Dataloft\Auto\Vehicle\Dto;
 
 use Spatie\LaravelData\Data;
 
-class VehicleCreateData extends Data
+final class VehicleCreateData extends Data
 {
     public function __construct(
         public readonly int $carModelId,
