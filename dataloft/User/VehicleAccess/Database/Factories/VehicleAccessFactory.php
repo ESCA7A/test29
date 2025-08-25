@@ -11,6 +11,7 @@ class VehicleAccessFactory extends Factory
 {
     protected $model = VehicleAccess::class;
 
+    #[\Override]
     public function definition(): array
     {
         return [

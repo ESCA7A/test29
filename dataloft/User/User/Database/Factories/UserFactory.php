@@ -13,6 +13,7 @@ class UserFactory extends Factory
 
     protected static ?string $password;
 
+    #[\Override]
     public function definition(): array
     {
         return [

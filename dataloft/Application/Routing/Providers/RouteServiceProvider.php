@@ -11,6 +11,7 @@ final class RouteServiceProvider extends \Illuminate\Foundation\Support\Provider
 {
     public const HOME = '/home';
 
+    #[\Override]
     public function boot(): void
     {
         RateLimiter::for('api', function (Request $request) {

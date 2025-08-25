@@ -17,6 +17,7 @@ final class CreateVehicleRequest extends FormRequest
         ];
     }
 
+    #[\Override]
     public function messages(): array
     {
         return [

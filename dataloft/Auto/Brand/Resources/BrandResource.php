@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 final class BrandResource extends JsonResource
 {
+    #[\Override]
     public function toArray($request): array
     {
         return [

@@ -21,6 +21,7 @@ final class IndexVehicleRequest extends FormRequest
         ];
     }
 
+    #[\Override]
     protected function prepareForValidation()
     {
         $this->merge([
@@ -28,6 +29,7 @@ final class IndexVehicleRequest extends FormRequest
         ]);
     }
 
+    #[\Override]
     public function messages(): array
     {
         return [

@@ -13,6 +13,7 @@ class IsOwner implements ValidationRule, DataAwareRule
 {
     protected array $data = [];
 
+    #[\Override]
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $vehicleTable = (new Vehicle)->getTable();
@@ -30,6 +31,7 @@ class IsOwner implements ValidationRule, DataAwareRule
         }
     }
 
+    #[\Override]
     public function setData(array $data): void
     {
         $this->data = $data;

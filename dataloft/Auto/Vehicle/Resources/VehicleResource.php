@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 final class VehicleResource extends JsonResource
 {
+    #[\Override]
     public function toArray($request): array
     {
         return [

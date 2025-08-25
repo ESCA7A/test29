@@ -31,6 +31,7 @@ class ShowVehicleRequest extends FormRequest
         ];
     }
 
+    #[\Override]
     protected function prepareForValidation(): void
     {
         $this->merge([
@@ -38,6 +39,7 @@ class ShowVehicleRequest extends FormRequest
         ]);
     }
 
+    #[\Override]
     public function messages(): array
     {
         return [

@@ -10,6 +10,7 @@ final class VehicleFactory extends Factory
 {
     protected $model = Vehicle::class;
 
+    #[\Override]
     public function definition(): array
     {
         return [
