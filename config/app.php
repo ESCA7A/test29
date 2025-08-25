@@ -133,6 +133,7 @@ return [
          */
         \Dataloft\Application\Routing\Providers\RouteServiceProvider::class,
         \Dataloft\Application\Migration\Providers\MigrationServiceProvider::class,
+        \Dataloft\Application\Config\Providers\ConfigServiceProvider::class,
 
     ])->toArray(),
 ];
