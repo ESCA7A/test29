@@ -9,7 +9,7 @@ use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\DB;
 
-class IsOwner implements ValidationRule, DataAwareRule
+final class IsOwner implements ValidationRule, DataAwareRule
 {
     protected array $data = [];
 

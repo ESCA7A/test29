@@ -6,6 +6,9 @@ use Dataloft\Auto\Brand\Models\Brand;
 use Dataloft\Auto\CarModel\Models\CarModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @psalm-suppress MissingTemplateParam
+ */
 final class CarModelFactory extends Factory
 {
     protected $model = CarModel::class;

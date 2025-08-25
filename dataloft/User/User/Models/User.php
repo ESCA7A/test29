@@ -37,8 +37,11 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+final class User extends Authenticatable
 {
+    /**
+     * @psalm-suppress MissingTemplateParam
+     */
     use HasFactory, Notifiable;
 
     protected $fillable = [
@@ -62,6 +65,10 @@ class User extends Authenticatable
         return UserFactory::new();
     }
 
+    /**
+     * @return BelongsToMany
+     * @psalm-api
+     */
     public function getVehicles(): BelongsToMany
     {
         return $this->belongsToMany(Vehicle::class, 'vehicle_accesses')

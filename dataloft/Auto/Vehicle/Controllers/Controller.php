@@ -21,10 +21,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Throwable;
 
-class Controller extends BaseController
+final class Controller extends BaseController
 {
     /**
      * @throws Exception
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function index(IndexVehicleRequest $request): JsonResponse
     {
@@ -40,6 +41,7 @@ class Controller extends BaseController
 
     /**
      * @throws Throwable
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function create(CreateVehicleRequest $request): JsonResponse
     {
@@ -48,6 +50,7 @@ class Controller extends BaseController
 
     /**
      * @throws Throwable
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function update(UpdateVehicleRequest $request): JsonResponse
     {
@@ -56,6 +59,7 @@ class Controller extends BaseController
 
     /**
      * @throws Throwable
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function delete(DeleteVehicleRequest $request): JsonResponse
     {

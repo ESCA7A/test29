@@ -5,6 +5,9 @@ namespace Dataloft\Application\Migration\Providers;
 use App\Providers\AppServiceProvider;
 use Dataloft\Application\Migration\UseCases\MigrationFinder;
 
+/**
+ * @psalm-suppress UnusedClass
+ */
 final class MigrationServiceProvider extends AppServiceProvider
 {
     #[\Override]

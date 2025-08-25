@@ -6,7 +6,7 @@ use Dataloft\Auto\Vehicle\Resources\VehicleResource;
 use Dataloft\User\User\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+final class UserResource extends JsonResource
 {
     #[\Override]
     public function toArray($request): array

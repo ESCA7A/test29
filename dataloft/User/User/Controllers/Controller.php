@@ -10,10 +10,11 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 
-class Controller extends BaseController
+final class Controller extends BaseController
 {
     /**
      * @throws Exception
+     * @psalm-suppress PossiblyUnusedMethod
      */
     public function index(ShowVehicleRequest $request): JsonResponse
     {

@@ -7,6 +7,10 @@ use Illuminate\Validation\Rule;
 
 final class CreateVehicleRequest extends FormRequest
 {
+    /**
+     * @return array
+     * @psalm-api
+     */
     public function rules(): array
     {
         return [

@@ -16,7 +16,7 @@ final readonly class Registrar
 
         $dddData->map(function ($contextList, $domain) {
             /** @var Collection $contextList */
-            $contextList->map(function ($context) use ($domain, $contextList) {
+            $contextList->map(function ($context) use ($domain) {
                 $path = base_path('dataloft') . "/{$domain}/{$context}";
                 if (!realpath($path)) {
                     Log::debug(__('Путь не существует'), ['domain' => $domain, 'context' => $context, 'path' => $path,]);

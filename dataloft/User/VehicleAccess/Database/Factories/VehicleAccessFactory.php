@@ -7,7 +7,10 @@ use Dataloft\User\User\Models\User;
 use Dataloft\User\VehicleAccess\Models\VehicleAccess;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class VehicleAccessFactory extends Factory
+/**
+ * @psalm-suppress MissingTemplateParam
+ */
+final class VehicleAccessFactory extends Factory
 {
     protected $model = VehicleAccess::class;
 

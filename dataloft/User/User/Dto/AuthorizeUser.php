@@ -5,10 +5,14 @@ namespace Dataloft\User\User\Dto;
 use Spatie\LaravelData\Data;
 
 /**
- * @property int $id
+ * @psalm-suppress PossiblyUnusedProperty
  */
-class AuthorizeUser extends Data
+final class AuthorizeUser extends Data
 {
+    /**
+     * @param int $userId
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function __construct(
         public readonly int $userId,
     ) {}

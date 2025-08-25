@@ -31,18 +31,27 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereReleaseYear($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @psalm-suppress MissingTemplateParam
  */
-class Vehicle extends Model
+final class Vehicle extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
+    /**
+     * @return BelongsTo
+     * @psalm-api
+     */
     public function getCarModel(): BelongsTo
     {
         return $this->belongsTo(CarModel::class, 'car_model_id');
     }
 
+    /**
+     * @return BelongsToMany
+     * @psalm-api
+     */
     public function getUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'vehicle_accesses')

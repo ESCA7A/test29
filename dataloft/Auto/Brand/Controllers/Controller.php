@@ -7,8 +7,11 @@ use Dataloft\Auto\Brand\Models\Brand;
 use Dataloft\Auto\Brand\Resources\BrandResource;
 use Illuminate\Http\JsonResponse;
 
-class Controller extends BaseController
+final class Controller extends BaseController
 {
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function index(): JsonResponse
     {
         return $this->asJson(BrandResource::collection(Brand::query()->paginate(15)));

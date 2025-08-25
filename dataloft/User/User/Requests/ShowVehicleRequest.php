@@ -10,8 +10,12 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property int $id
  * @property int $limit
  */
-class ShowVehicleRequest extends FormRequest
+final class ShowVehicleRequest extends FormRequest
 {
+    /**
+     * @return bool
+     * @psalm-api
+     */
     public function authorize(): bool
     {
         if ($this->userId) {
@@ -23,6 +27,10 @@ class ShowVehicleRequest extends FormRequest
         return false;
     }
 
+    /**
+     * @return array[]
+     * @psalm-api
+     */
     public function rules(): array
     {
         return [

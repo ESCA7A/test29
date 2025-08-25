@@ -22,13 +22,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Brand whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @psalm-suppress MissingTemplateParam
  */
-class Brand extends Model
+final class Brand extends Model
 {
     use HasFactory;
 
     protected $table = 'brands';
 
+    /**
+     * @return HasMany
+     * @psalm-api
+     */
     public function getCarModels(): HasMany
     {
         return $this->hasMany(CarModel::class);

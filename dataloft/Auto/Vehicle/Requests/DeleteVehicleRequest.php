@@ -9,6 +9,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 final class DeleteVehicleRequest extends FormRequest
 {
+    /**
+     * @return bool
+     * @psalm-api
+     */
     public function authorize(): bool
     {
         if ($this->user_id) {
@@ -20,6 +24,10 @@ final class DeleteVehicleRequest extends FormRequest
         return false;
     }
 
+    /**
+     * @return array[]
+     * @psalm-api
+     */
     public function rules(): array
     {
         return [

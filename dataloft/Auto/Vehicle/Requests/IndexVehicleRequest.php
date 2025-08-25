@@ -9,11 +9,19 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 final class IndexVehicleRequest extends FormRequest
 {
+    /**
+     * @return bool
+     * @psalm-api
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * @return array[]
+     * @psalm-api
+     */
     public function rules(): array
     {
         return [

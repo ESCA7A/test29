@@ -9,9 +9,8 @@ use RecursiveIteratorIterator;
 
 final class RouteFinder
 {
-    public function register(string $basePath, callable $callback = null): array
+    public function register(string $basePath, callable $callback = null): never
     {
-        $routes = [];
         $rdi = new RecursiveDirectoryIterator($basePath, FilesystemIterator::KEY_AS_PATHNAME);
         $recursiveIterator = new RecursiveIteratorIterator($rdi);
         foreach ($recursiveIterator as $item) {
@@ -31,7 +30,5 @@ final class RouteFinder
                 $callback($riPathname);
             }
         }
-
-        return $routes;
     }
 }

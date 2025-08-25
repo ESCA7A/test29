@@ -27,16 +27,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @psalm-suppress MissingTemplateParam
  */
-class CarModel extends Model
+final class CarModel extends Model
 {
     use HasFactory;
 
+    /**
+     * @return BelongsTo
+     * @psalm-api
+     */
     public function getBrand(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
+    /**
+     * @return HasMany
+     * @psalm-api
+     */
     public function getVehicles(): HasMany
     {
         return $this->hasMany(Vehicle::class);

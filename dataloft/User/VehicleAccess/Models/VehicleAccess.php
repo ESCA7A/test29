@@ -24,13 +24,18 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|VehicleAccess whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|VehicleAccess whereVehicleId($value)
  * @mixin \Eloquent
+ * @psalm-suppress MissingTemplateParam
  */
-class VehicleAccess extends Pivot
+final class VehicleAccess extends Pivot
 {
     use HasFactory;
 
     protected $table = 'vehicle_accesses';
 
+    /**
+     * @return BelongsTo
+     * @psalm-api
+     */
     public function getUser(): BelongsTo
     {
         return $this->belongsTo(User::class);

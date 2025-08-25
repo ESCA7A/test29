@@ -7,8 +7,11 @@ use Dataloft\Auto\CarModel\Models\CarModel;
 use Dataloft\Auto\CarModel\Resources\CarModelResource;
 use Illuminate\Http\JsonResponse;
 
-class Controller extends BaseController
+final class Controller extends BaseController
 {
+    /**
+     * @psalm-suppress PossiblyUnusedMethod
+     */
     public function index(): JsonResponse
     {
         return $this->asJson(CarModelResource::collection(CarModel::query()->paginate(15)));
