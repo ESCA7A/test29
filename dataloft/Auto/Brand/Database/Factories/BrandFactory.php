@@ -9,7 +9,7 @@ final class BrandFactory extends Factory
 {
     protected $model = Brand::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => "brand_{$this->faker->word}"

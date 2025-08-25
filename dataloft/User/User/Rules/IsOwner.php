@@ -22,7 +22,7 @@ class IsOwner implements ValidationRule, DataAwareRule
             ->join($vehicleAccessTable, "{$vehicleTable}.id", '=', "{$vehicleAccessTable}.vehicle_id")
             ->where("{$vehicleAccessTable}.user_id", $this->data['user_id'])
             ->where("{$vehicleTable}.id", $value)
-            ->select('vehicles.id')
+            ->select("{$vehicleTable}.id")
             ->count();
 
         if (!$isOwner) {

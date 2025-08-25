@@ -20,11 +20,6 @@ class VehicleAccess extends Pivot
         return $this->belongsTo(User::class);
     }
 
-    public function getVehicles(): BelongsTo
-    {
-        return $this->belongsTo(Vehicle::class);
-    }
-
     protected static function newFactory(): VehicleAccessFactory
     {
         return VehicleAccessFactory::new();

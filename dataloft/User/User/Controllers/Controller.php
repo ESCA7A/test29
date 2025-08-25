@@ -2,15 +2,30 @@
 
 namespace Dataloft\User\User\Controllers;
 
+use Dataloft\Application\Cache\UseCases\CacheKeyFromUri;
 use Dataloft\Application\Routing\Controllers\BaseController;
 use Dataloft\User\User\Requests\ShowVehicleRequest;
 use Dataloft\User\User\Resources\UserResource;
+use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class Controller extends BaseController
 {
+    /**
+     * @throws Exception
+     */
     public function index(ShowVehicleRequest $request): JsonResponse
     {
-        return $this->asJson(new UserResource($request->user()->load('getVehicles')));
+        $resource = cache((new CacheKeyFromUri($request))->fromUri());
+
+        if (!$resource) {
+            $resource = Cache::remember(
+                $resource, now()->addDay(),
+                fn () => new UserResource($request->user()->load('getVehicles'))
+            );
+        }
+
+        return $this->asJson($resource);
     }
 }

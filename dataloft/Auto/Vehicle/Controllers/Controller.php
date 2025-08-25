@@ -2,6 +2,7 @@
 
 namespace Dataloft\Auto\Vehicle\Controllers;
 
+use Dataloft\Application\Cache\UseCases\CacheKeyFromUri;
 use Dataloft\Application\Routing\Controllers\BaseController;
 use Dataloft\Auto\Vehicle\Dto\VehicleCreateData;
 use Dataloft\Auto\Vehicle\Dto\VehicleDeleteData;
@@ -15,29 +16,26 @@ use Dataloft\Auto\Vehicle\Resources\VehicleResource;
 use Dataloft\Auto\Vehicle\UseCases\DeleteVehicle;
 use Dataloft\Auto\Vehicle\UseCases\NewVehicle;
 use Dataloft\Auto\Vehicle\UseCases\UpdateVehicle;
+use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 use Throwable;
 
 class Controller extends BaseController
 {
     /**
+     * @throws Exception
      */
     public function index(IndexVehicleRequest $request): JsonResponse
     {
-        $vehicleResource = cache('vehicle-resource-index');
-
-        if (!$vehicleResource) {
-            $vehicleResource = cache('vehicle-resource-index') ?? VehicleResource::collection(
+        $resource = cache((new CacheKeyFromUri($request))->fromUri());
+        if (!$resource) {
+            $resource = Cache::remember($resource, now()->addDay(), fn () => VehicleResource::collection(
                 Vehicle::query()->with('getCarModel.getBrand')->paginate($request->limit)
-            );
-            cache()->remember(
-                'vehicle-resource-index',
-                now()->addDay(),
-                fn () => $vehicleResource
-            );
+            ));
         }
 
-        return $this->asJson($vehicleResource);
+        return $this->asJson($resource);
     }
 
     /**
