@@ -2,7 +2,6 @@
 
 namespace Dataloft\User\VehicleAccess\Models;
 
-use Dataloft\Auto\Vehicle\Models\Vehicle;
 use Dataloft\User\User\Models\User;
 use Dataloft\User\VehicleAccess\Database\Factories\VehicleAccessFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
