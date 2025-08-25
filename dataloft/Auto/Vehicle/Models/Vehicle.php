@@ -11,6 +11,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property int $id
+ * @property int $car_model_id
+ * @property string|null $release_year Год выпуска
+ * @property int|null $car_mileage_km Пробег в километрах
+ * @property string|null $color Цвет
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Dataloft\Auto\Vehicle\Database\Factories\VehicleFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereCarMileageKm($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereCarModelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereColor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereReleaseYear($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Vehicle whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Vehicle extends Model
 {
     use HasFactory;

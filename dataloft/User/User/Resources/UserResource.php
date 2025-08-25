@@ -3,6 +3,7 @@
 namespace Dataloft\User\User\Resources;
 
 use Dataloft\Auto\Vehicle\Resources\VehicleResource;
+use Dataloft\User\User\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -10,6 +11,7 @@ class UserResource extends JsonResource
     #[\Override]
     public function toArray($request): array
     {
+        /** @var User $this */
         return [
             'id' => $this->id,
             'name' => $this->name,

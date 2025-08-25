@@ -12,6 +12,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static inRandomOrder(): CarModel
+ * @property int $id
+ * @property string $title
+ * @property int $brand_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Dataloft\Auto\CarModel\Database\Factories\CarModelFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel whereBrandId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CarModel whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class CarModel extends Model
 {
