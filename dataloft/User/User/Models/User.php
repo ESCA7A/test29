@@ -3,6 +3,7 @@
 namespace Dataloft\User\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Dataloft\Auto\Vehicle\Models\Vehicle;
 use Dataloft\User\User\Database\Factories\UserFactory;
 use Dataloft\User\VehicleAccess\Models\VehicleAccess;

@@ -14,10 +14,13 @@ final readonly class CacheKeyFromUri
     ) {}
 
     /**
-     * @return string|null
+     * @return null|string|string[]
+     *
      * @throws Exception
+     *
+     * @psalm-return array<string>|null|string
      */
-    public function fromUri(): ?string
+    public function fromUri(): array|string|null
     {
         try {
             $key = Str::replace('/', '-', $this->request->uri()->path());

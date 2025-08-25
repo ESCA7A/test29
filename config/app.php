@@ -131,9 +131,9 @@ return [
         /*
          * Application Service Providers...
          */
-        \Dataloft\Application\Routing\Providers\RouteServiceProvider::class,
-        \Dataloft\Application\Migration\Providers\MigrationServiceProvider::class,
         \Dataloft\Application\Config\Providers\ConfigServiceProvider::class,
+        \Dataloft\Application\Migration\Providers\MigrationServiceProvider::class,
+        \Dataloft\Application\Routing\Providers\RouteServiceProvider::class,
 
     ])->toArray(),
 ];
