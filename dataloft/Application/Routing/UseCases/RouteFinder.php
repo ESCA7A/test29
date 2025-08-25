@@ -9,7 +9,7 @@ use RecursiveIteratorIterator;
 
 final class RouteFinder
 {
-    public function get(string $basePath): array
+    public function register(string $basePath, callable $callback = null): array
     {
         $routes = [];
         $rdi = new RecursiveDirectoryIterator($basePath, FilesystemIterator::KEY_AS_PATHNAME);
@@ -21,21 +21,14 @@ final class RouteFinder
             }
 
             $riPathname = $item->getPathname();
-            $routeIsExist = Str::contains($riPathname, 'routes');
+            $routeIsExist = Str::contains($riPathname, config('custom.routes_directory', 'routes'));
             if (!$routeIsExist) {
 
                 continue;
             }
 
-            switch ($riPathname) {
-                case str_contains($riPathname, 'api.php'):
-                    $routes['api'] = $riPathname;
-                    break;
-                case str_contains($riPathname, 'web.php'):
-                    $routes['web'] = $riPathname;
-                    break;
-                default:
-                    $routes['other'] = $riPathname;
+            if ($callback) {
+                $callback($riPathname);
             }
         }
 

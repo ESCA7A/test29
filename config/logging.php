@@ -127,6 +127,23 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'cache' => [
+            'redis' => [
+                'access' => [
+                    'driver' => 'daily',
+                    'path' => storage_path('logs/cache/access/redis.log'),
+                    'level' => env('LOG_LEVEL', 'debug'),
+                    'days' => env('LOG_DAILY_DAYS', 14),
+                ],
+                'debug' => [
+                    'driver' => 'daily',
+                    'path' => storage_path('logs/cache/debug/redis.log'),
+                    'level' => env('LOG_LEVEL', 'debug'),
+                    'days' => env('LOG_DAILY_DAYS', 14),
+                ],
+            ],
+        ]
+
     ],
 
 ];
